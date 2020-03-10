@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: //shared_tc/com.sapall.security/630_SP_COR/src/_deploy/dist/configuration/shared/dataSourceConfiguration_ads_readonly_db.xml#6 $ from $DateTime: 2004/08/20 09:55:24 $ ($Change: 17140 $) -->
+<dataSources>
+	<dataSource displayName="Profiles (Database)" isPrimary="true" isReadonly="false" className="com.sap.security.core.persistence.datasource.imp.DataBasePersistence" id="PRIVATE_DATASOURCE">
+		<homeFor>
+            <principals>
+             	<principal type="account">
+	 				<nameSpace name="$serviceUser$">
+ 						<attribute name="SERVICEUSER_ATTRIBUTE">
+ 							<values>
+ 								<value>IS_SERVICEUSER</value>
+ 							</values>
+ 						</attribute>
+	 				</nameSpace>
+ 				</principal>
+ 				<principal type="user">
+ 					<nameSpace name="$serviceUser$">
+ 						<attribute name="SERVICEUSER_ATTRIBUTE">
+ 							<values>
+ 								<value>IS_SERVICEUSER</value>
+	 						</values>
+ 						</attribute>
+ 					</nameSpace>
+ 				</principal>
+                <principal type="team" />
+                <principal type="ROOT" />
+                <principal type="OOOO" />
+            </principals>
+        </homeFor>
+        <notHomeFor/>
+
+        <responsibleFor>
+            <principals>
+            	<principal type="group"/>
+            	<principal type="user"/>
+            	<principal type="account"/>
+
+
+                <principal type="team"/>
+                <principal type="ROOT" />
+                <principal type="OOOO" />
+            </principals>
+        </responsibleFor>
+
+        <notResponsibleFor/>
+        <attributeMapping />
+        <privateSection/>
+
+	</dataSource>
+	<dataSource displayName="Customer (OpenLDAP)" isPrimary="true" isReadonly="false" className="com.sap.security.core.persistence.datasource.imp.LDAPPersistence" id="PUBLIC_LDAP">
+		<homeFor>
+			<principal type="account"/>
+			<principal type="user"/>
+			<principal type="group"/>
+ 		</homeFor>
+
+ 		<notHomeFor>
+ 			<principal type="account">
+ 				<nameSpace name="$serviceUser$">
+ 					<attribute name="SERVICEUSER_ATTRIBUTE">
+ 						<values>
+ 							<value>IS_SERVICEUSER</value>
+ 						</values>
+ 					</attribute>
+ 				</nameSpace>
+ 			</principal>
+ 			<principal type="user">
+ 				<nameSpace name="$serviceUser$">
+ 					<attribute name="SERVICEUSER_ATTRIBUTE">
+ 						<values>
+ 							<value>IS_SERVICEUSER</value>
+ 						</values>
+ 					</attribute>
+ 				</nameSpace>
+ 			</principal>
+ 		</notHomeFor>
+		
+		<responsibleFor>
+			<principal type="account">
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="j_user"/>
+					<attribute name="logonalias"/>
+					<attribute name="j_password"/>
+					<attribute name="userid"/>					
+				</nameSpace>	
+			</principal>
+			<principal type="user">
+				<nameSpace name="$usermapping$">  
+					<attributes>  
+						<attribute name="REFERENCE_SYSTEM_USER">  
+							<physicalAttribute name="sapUsername"/>  
+						</attribute>  
+					</attributes>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="firstname" populateInitially="true"/>
+					<attribute name="displayname" populateInitially="true"/>
+					<attribute name="lastname" populateInitially="true"/>
+					<attribute name="fax"/>
+					<attribute name="email"/>
+					<attribute name="title"/>
+					<attribute name="department"/>
+					<attribute name="description"/>
+					<attribute name="mobile"/>
+					<attribute name="telephone"/>
+					<attribute name="streetaddress"/>
+					<attribute name="uniquename" populateInitially="true"/>
+					<attribute name="pobox"/>
+				</nameSpace>
+				<nameSpace name="raiwa">
+					<attribute name="SapUserName"/>
+					<attribute name="UId"/>
+					<attribute name="Debitor"/>
+					<attribute name="Division"/>
+					<attribute name="Website"/>
+					<attribute name="SapParameters"/>
+					<attribute name="SapRoles"/>
+					<attribute name="Inactive"/>
+					<attribute name="Salutation"/>	
+					<attribute name="Company"/>
+					<attribute name="TermsOfUse"/>	
+					<attribute name="Newsletter"/>
+					<attribute name="Company"/>
+					<attribute name="Subsidiary"/>	
+					<attribute name="Discount"/>
+					<attribute name="TermsOfUseTimestamp"/>	
+					<attribute name="Privacy"/>	
+					<attribute name="PrivacyTimestamp"/>	
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.usermanagement.relation">
+					<attribute name="PRINCIPAL_RELATION_PARENT_ATTRIBUTE"/>
+				</nameSpace>
+				<nameSpace name="$usermapping$">
+					<attribute name="REFERENCE_SYSTEM_USER"/>
+				</nameSpace>
+			</principal>
+			<principal type="group">
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="description" populateInitially="true"/>
+					<attribute name="uniquename"/>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.usermanagement.relation">
+					<attribute name="PRINCIPAL_RELATION_MEMBER_ATTRIBUTE"/>
+					<attribute name="PRINCIPAL_RELATION_PARENT_ATTRIBUTE"/>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.bridge">
+					<attribute name="dn"/>
+				</nameSpace>
+			</principal>
+		</responsibleFor>
+		<attributeMapping>
+			<principal type="account">
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="j_user">
+						<physicalAttribute name="sapUsername"/>
+					</attribute>
+					<attribute name="logonalias">
+						<physicalAttribute name="sapUsername"/>
+					</attribute>
+					<attribute name="j_password">
+						<physicalAttribute name="userpassword"/>
+					</attribute>
+					<attribute name="userid">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.authentication">
+					<attribute name="principal">
+						<physicalAttribute name="sapUsername"/>
+					</attribute>
+					<attribute name="realm">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+					<attribute name="domain">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+				</nameSpace>
+			</principal>
+			<principal type="user">
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="firstname">
+						<physicalAttribute name="givenname"/>
+					</attribute>
+					<attribute name="displayname">
+						<physicalAttribute name="displayname"/>
+					</attribute>
+					<attribute name="lastname">
+						<physicalAttribute name="sn"/>
+					</attribute>
+					<attribute name="fax">
+						<physicalAttribute name="facsimiletelephonenumber"/>
+					</attribute>
+					<attribute name="uniquename">
+						<physicalAttribute name="sapUsername"/>
+					</attribute>
+					<attribute name="loginid">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+					<attribute name="title">
+						<physicalAttribute name="title"/>
+					</attribute>
+					<attribute name="email">
+						<physicalAttribute name="mail"/>
+					</attribute>
+					<attribute name="mobile">
+						<physicalAttribute name="mobile"/>
+					</attribute>
+					<attribute name="telephone">
+						<physicalAttribute name="telephonenumber"/>
+					</attribute>
+					<attribute name="department">
+						<physicalAttribute name="ou"/>
+					</attribute>
+					<attribute name="description">
+						<physicalAttribute name="description"/>
+					</attribute>
+					<attribute name="streetaddress">
+						<physicalAttribute name="postalAddress"/>
+					</attribute>
+					<attribute name="pobox">
+						<physicalAttribute name="postofficebox"/>
+					</attribute>
+				</nameSpace>
+				<nameSpace name="raiwa">
+					<attribute name="SapUserName">
+						<physicalAttribute name="cn"/>
+					</attribute>
+					<attribute name="UId">
+						<physicalAttribute name="uid"/>
+					</attribute>
+					<attribute name="Debitor">
+						<physicalAttribute name="customerNumber"/>
+					</attribute>
+					<attribute name="Division">
+						<physicalAttribute name="division"/>
+					</attribute>
+					<attribute name="Website">
+						<physicalAttribute name="webaddress"/>
+					</attribute>
+					<attribute name="SapParameters">
+						<physicalAttribute name="sapParameters"/>
+					</attribute>
+					<attribute name="SapRoles">
+						<physicalAttribute name="sapRoles"/>
+					</attribute>
+					<attribute name="Inactive">
+						<physicalAttribute name="inactive"/>
+					</attribute>
+					<attribute name="Salutation">
+						<physicalAttribute name="title"/>
+					</attribute>	
+					<attribute name="Company">
+						<physicalAttribute name="o"/>
+					</attribute>
+					<attribute name="TermsOfUse">
+						<physicalAttribute name="termsOfUse"/>
+					</attribute>
+					<attribute name="Newsletter">
+						<physicalAttribute name="newsletterSubscription"/>
+					</attribute>
+					<attribute name="Subsidiary">
+						<physicalAttribute name="subsidiary"/>
+					</attribute>
+					<attribute name="Discount">
+						<physicalAttribute name="businessCategory"/>
+					</attribute>
+					<attribute name="TermsOfUseTimestamp">
+						<physicalAttribute name="termsOfUseTimestamp"/>
+					</attribute>
+					<attribute name="Privacy">
+						<physicalAttribute name="privacy"/>
+					</attribute>
+					<attribute name="PrivacyTimestamp">
+						<physicalAttribute name="privacyTimestamp"/>
+					</attribute>				
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.usermanagement.relation">
+					<attribute name="PRINCIPAL_RELATION_PARENT_ATTRIBUTE">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+				</nameSpace>
+				<nameSpace name="$usermapping$">
+					<attribute name="REFERENCE_SYSTEM_USER">
+						<physicalAttribute name="sapusername"/>
+					</attribute>
+				</nameSpace>
+			</principal>
+			<principal type="group">
+				<nameSpace name="com.sap.security.core.usermanagement">
+					<attribute name="description">
+						<physicalAttribute name="description"/>
+					</attribute>
+					<attribute name="uniquename" populateInitially="true">
+						<physicalAttribute name="cn"/>
+					</attribute>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.usermanagement.relation">
+					<attribute name="PRINCIPAL_RELATION_MEMBER_ATTRIBUTE">
+						<physicalAttribute name="member"/>
+					</attribute>
+					<attribute name="PRINCIPAL_RELATION_PARENT_ATTRIBUTE">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+				</nameSpace>
+				<nameSpace name="com.sap.security.core.bridge">
+					<attribute name="dn">
+						<physicalAttribute name="*null*"/>
+					</attribute>
+				</nameSpace>
+			</principal>
+		</attributeMapping>
+		<privateSection>
+			<ume.ldap.access.server_type>OpenLDAP</ume.ldap.access.server_type>
+			<ume.ldap.access.server_name>192.168.70.183</ume.ldap.access.server_name>
+			<ume.ldap.access.server_port>389</ume.ldap.access.server_port>
+			<ume.ldap.access.user>cn=sapportal,ou=profiles,dc=raiwa,dc=net</ume.ldap.access.user>
+			<ume.ldap.access.password>strengGeheim</ume.ldap.access.password>
+			<ume.ldap.access.base_path.user>ou=people,dc=raiwa,dc=net</ume.ldap.access.base_path.user>
+			<ume.ldap.access.base_path.grup>ou=groups,dc=raiwa,dc=net</ume.ldap.access.base_path.grup>
+			<ume.ldap.access.ssl>false</ume.ldap.access.ssl>
+			<ume.ldap.access.context_factory>com.sun.jndi.ldap.LdapCtxFactory</ume.ldap.access.context_factory>
+			<ume.ldap.access.authentication>simple</ume.ldap.access.authentication>
+			<ume.ldap.access.flat_group_hierachy>true</ume.ldap.access.flat_group_hierachy>
+			<ume.ldap.access.user_as_account>true</ume.ldap.access.user_as_account>
+			<ume.ldap.access.dynamic_groups>false</ume.ldap.access.dynamic_groups>
+			<ume.ldap.access.ssl_socket_factory>com.sap.security.core.server.https.SecureConnectionFactory</ume.ldap.access.ssl_socket_factory>
+			<ume.ldap.access.objectclass.user>portalUser</ume.ldap.access.objectclass.user>
+			<ume.ldap.access.objectclass.uacc>portalUser</ume.ldap.access.objectclass.uacc>
+			<ume.ldap.access.objectclass.grup>groupOfNames</ume.ldap.access.objectclass.grup>	
+			<ume.ldap.access.naming_attribute.user>cn</ume.ldap.access.naming_attribute.user>
+			<ume.ldap.access.auxiliary_naming_attribute.user>sapUsername</ume.ldap.access.auxiliary_naming_attribute.user>
+			<ume.ldap.access.naming_attribute.uacc>cn</ume.ldap.access.naming_attribute.uacc>
+			<ume.ldap.access.auxiliary_naming_attribute.uacc>sapUsername</ume.ldap.access.auxiliary_naming_attribute.uacc>
+			<ume.ldap.access.naming_attribute.grup>cn</ume.ldap.access.naming_attribute.grup>
+		</privateSection>
+	</dataSource>
+</dataSources>

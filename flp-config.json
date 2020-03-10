@@ -1,0 +1,34 @@
+{
+    "application": {
+        "id": "",
+        "title": "opensap.movies.movies",
+        "type": "SAP_UI5_Component",
+        "componentUrl": "/",
+        "appUrl": "#movies-Display",
+        "navigationComponentName": "opensap.movies",
+        "intentSemanticObject": "movies",
+        "intentAction": "Display",
+        "html5ApplicationName": "movies",
+        "HCPParentApplicationName": ""
+    },
+    "assignment": {
+        "groups": [
+            "f042e00a-c6c5-4e8b-88eb-20b84661a529"
+        ],
+        "contentPackages": [
+            "fed52a7c-3bdf-45d7-8060-f8dae192310f"
+        ],
+        "categories": []
+    },
+    "tile": {
+        "type": "StaticTile",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "searchKeywords": "Title,Subtitle",
+        "displayIconUrl": "sap-icon://activate",
+        "displayInfoText": "",
+        "size": "1x1",
+        "serviceURL": "",
+        "refreshInterval": ""
+    }
+}
